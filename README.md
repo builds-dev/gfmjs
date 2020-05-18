@@ -61,9 +61,11 @@ Code blocks that are tagged as `js` or `javascript` will be evaluated.
 	```
 
 You can also make hidden code blocks that will be evaluated by using html comments tagged in the same manner:
-	<!--js
-		// code here
-	-->
+```html
+<!--js
+	// code here
+-->
+```
 
 If you want to write visible javascript code blocks that won't be evaluated but will be styled, tag them as `node`:
 
