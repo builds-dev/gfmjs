@@ -51,6 +51,26 @@ $ gfmjs ./README.md
 $ gfmjs -o ./build/README.js ./README.md
 ```
 
+Code blocks that are tagged as `js` or `javascript` will be evaluated.
+
+	```js
+		// code here
+	```
+	```javascript
+		// code here
+	```
+
+You can also make hidden code blocks that will be evaluated by using html comments tagged in the same manner:
+	<!--js
+		// code here
+	-->
+
+If you want to write visible javascript code blocks that won't be evaluated but will be styled, tag them as `node`:
+
+	```node
+		// code here
+	```
+
 ## sadness
 
 No tests! It seems to work. Use with caution until someone has time to write tests. If you have time, please PR some tests.
