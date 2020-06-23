@@ -1,6 +1,7 @@
 import { rollup } from 'rollup'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json';
 import builtins from 'builtin-modules'
 import { js_from_gfm } from './js_from_gfm.js'
 import { transform_comment_assertions } from './transform_comment_assertions.js'
@@ -19,8 +20,9 @@ export const make_bundle = async (gfm, { file }) => {
 				resolveId: id => id === file ? id : null,
 				load: async (id) => id === file ? gfmjs : null
 			},
-			nodeResolve({ rootDir: path.dirname(file), extensions: [ '.md', '.mjs', '.js', '.json' ] }),
-			commonjs({ extensions: [ '.md', '.js', '.cjs', 'json' ] })
+			nodeResolve({ rootDir: path.dirname(file), extensions: [ '.md', '.mjs', '.js' ] }),
+			commonjs({ extensions: [ '.md', '.js', '.cjs' ] }),
+			json()
 		],
 		external: builtins,
 		inlineDynamicImports: true,
