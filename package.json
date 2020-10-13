@@ -9,13 +9,15 @@
     "gfmjs": "./bin/gfmjs.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "shopt -s nullglob && ls ./{src,test}/**/*.{spec,test}.js | xargs -I file -exec node file",
     "test:docs": "./bin/gfmjs.js ./README.md"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "zora": "^4.0.0"
+  },
   "dependencies": {
     "@babel/core": "^7.11.6",
     "@m59/use-tmp-dir": "^1.0.2",
