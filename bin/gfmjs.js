@@ -15,7 +15,9 @@ const prog = sade('gfmjs [file]', true)
 	.action(async (file, { outfile }) => {
 		try {
 			const { code, failed, output } = await verify_file(file)
-			const message = failed ? (output) : `${output ? `${output}\n\n` : ''}All assertions passed.`
+			const message = failed
+				? output
+				: `${output ? `${output}\n\n` : ''}All assertions passed.`
 			console[failed ? 'error' : 'log'](message)
 			if (outfile) {
 				await fs.promises.writeFile(outfile, code)
