@@ -72,7 +72,3 @@ If you want to write visible javascript code blocks that won't be evaluated but 
 	```node
 		// code here
 	```
-
-## sadness
-
-No tests! It seems to work. Use with caution until someone has time to write tests. If you have time, please PR some tests.
