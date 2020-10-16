@@ -1,11 +1,10 @@
 import { rollup } from 'rollup'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import json from '@rollup/plugin-json';
+import json from '@rollup/plugin-json'
 import builtins from 'builtin-modules'
 import { js_from_gfm } from './js_from_gfm.js'
 import { transform_comment_assertions } from './transform_comment_assertions.js'
-import replace_extension from 'replace-ext'
 import path from 'path'
 
 export const make_bundle = async (gfm, { file }) => {
