@@ -19,8 +19,11 @@ export const make_bundle = async (gfm, { file }) => {
 				resolveId: id => id === file ? id : null,
 				load: async (id) => id === file ? gfmjs : null
 			},
-			nodeResolve({ rootDir: path.dirname(file), extensions: [ '.md', '.mjs', '.js' ] }),
-			commonjs({ extensions: [ '.md', '.js', '.cjs' ] }),
+			nodeResolve({ rootDir: path.dirname(file), extensions: [ '.md', '.js', '.mjs' ] }),
+			commonjs({
+				extensions: [ '.md', '.js', '.cjs' ],
+				transformMixedEsModules: true
+			}),
 			json()
 		],
 		external: builtins,
