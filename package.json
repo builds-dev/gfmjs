@@ -9,7 +9,7 @@
     "gfmjs": "./bin/gfmjs.js"
   },
   "scripts": {
-    "test": "shopt -s nullglob && ls ./{src,test}/**/*.{spec,test}.js | xargs -I file -exec node file",
+    "test": "shopt -s nullglob && ls ./{src,test}/**/*.{spec,test}.js | xargs -I '#file' node '#file'",
     "test:docs": "./bin/gfmjs.js ./README.md"
   },
   "keywords": [],
