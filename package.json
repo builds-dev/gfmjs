@@ -28,7 +28,7 @@
     "builtin-modules": "^3.2.0",
     "into-stream": "^7.0.0",
     "magic-string": "^0.25.7",
-    "markdown-it": "^12.2.0",
+    "markdown-it": "^12.3.2",
     "promisify-child-process": "^4.1.1",
     "regex-fun": "^2.0.2",
     "replace-ext": "^2.0.0",
