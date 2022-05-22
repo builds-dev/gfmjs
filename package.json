@@ -1,39 +1,49 @@
 {
-  "name": "gfmjs",
+  "name": "@builds-dev/gfmjs",
   "version": "1.2.2",
   "description": "JavaScript test runner for GitHub Flavored Markdown files",
   "main": "src/index.js",
   "type": "module",
+  "engines": {
+    "node": ">=14.13.1"
+  },
   "sideEffects": false,
   "bin": {
     "gfmjs": "./bin/gfmjs.js"
   },
   "scripts": {
-    "test": "shopt -s nullglob && ls ./{src,test}/**/*.{spec,test}.js | xargs -I '#file' node '#file'",
+    "test": "glob-module-file --pattern=\"./{src,test}/**/*.{spec,test}.js\" --format=es --importStar | node --input-type=module",
     "test:docs": "./bin/gfmjs.js ./README.md"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "zora": "^5.0.0"
+  "keywords": [
+    "readme",
+    "documentation",
+    "docs",
+    "test",
+    "runner",
+    "assert",
+    "assertion"
+  ],
+  "author": {
+    "name": "Johnny Hauser",
+    "email": "johnnyhauser@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/builds-dev/gfmjs"
+  },
+  "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.15.5",
-    "@m59/use-tmp-dir": "^1.0.2",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^21.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.5",
-    "builtin-modules": "^3.2.0",
-    "into-stream": "^7.0.0",
-    "magic-string": "^0.25.7",
-    "markdown-it": "^12.2.0",
-    "promisify-child-process": "^4.1.1",
-    "regex-fun": "^2.0.2",
-    "replace-ext": "^2.0.0",
-    "rollup": "^2.58.0",
-    "sade": "^1.7.4",
+    "@babel/core": "^7.18.0",
+    "@m59/disposer": "^1.0.0",
+    "magic-string": "^0.26.2",
+    "markdown-it": "^13.0.1",
+    "regex-fun": "^2.0.3",
+    "sade": "^1.8.1",
     "source-map": "^0.7.3"
+  },
+  "devDependencies": {
+    "glob-module-file": "^3.0.2",
+    "zora": "^5.0.3"
   }
 }

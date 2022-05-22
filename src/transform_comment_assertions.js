@@ -8,7 +8,6 @@ export const transform_comment_assertions = async ({ code, map, file }) => {
 		const result = babel.transform(code, { plugins: [ addImports([ 'assert' ]), commentAssertions ], sourceMaps: 'both', inputSourceMap: map, filename: file })
 		return { code: result.code, map: result.map }
 	} catch (error) {
-		console.log(error)
 		return await sourceMap.SourceMapConsumer.with(map, null, consumer => {
 			throw Object.assign(error, { origin: consumer.originalPositionFor(error.loc) })
 		})

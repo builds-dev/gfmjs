@@ -1,18 +1,24 @@
-import path from 'path'
-import use_tmp_dir from '@m59/use-tmp-dir'
-import replace_extension from 'replace-ext'
-import child_process from 'promisify-child-process'
-import into_stream from 'into-stream'
-import builtins from 'builtin-modules'
-const { execFile, spawn } = child_process
-import fs from 'fs'
+import { promisify } from 'node:util'
+import { execFile } from 'node:child_process'
+const exec_file_async = promisify(execFile)
 
-export const run_js = async (js, { file = 'generated.js' } = {}) =>
-	use_tmp_dir(async tmp_dir => {
-		const output_file = replace_extension(path.join(tmp_dir, file), '.js')
-		await fs.promises.mkdir(path.dirname(output_file), { recursive: true })
-		await fs.promises.writeFile(output_file, js)
-		const { code = 0, stdout, stderr } = await execFile('node', [ '--enable-source-maps', '--unhandled-rejections=strict', output_file ])
+/*
+	TODO: if/when node supports source maps with --eval, remove ./use_temporary_mjs_file and its dependency @m59/disposer.
+*/
+import { use_temporary_mjs_file } from './use_temporary_mjs_file.js'
+
+
+export const run_js = (js, { file }) =>
+	use_temporary_mjs_file(file, js, file =>
+		exec_file_async
+			(
+				'node',
+				[
+					'--enable-source-maps',
+					// '--eval', js,
+					// '--input-type', 'module'
+					file
+				]
+			)
 			.catch(error => error)
-		return { code, stdout, stderr }
-	})
+	)

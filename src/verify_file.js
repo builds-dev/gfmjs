@@ -1,5 +1,4 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
 import { verify } from './verify.js'
 
 export const verify_file = async file => {

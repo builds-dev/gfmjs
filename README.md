@@ -38,7 +38,7 @@ foo(3)
 
 It has a sourcemap back to the original markdown file so errors should include the original location.
 
-CommonJS and/or ESM modules can be required or imported.
+As of v2, code will be interpreted as an [ES module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) entrypoint, so use `import` rather than `require`. Use [`createRequire`](https://nodejs.org/api/module.html#modulecreaterequirefilename) if needed.
 
 ## usage
 
@@ -53,14 +53,17 @@ $ gfmjs -o ./build/README.js ./README.md
 
 Code blocks that are tagged as `js` or `javascript` will be evaluated.
 
-	```js
-		// code here
-	```
-	```javascript
-		// code here
-	```
+````
+```js
+	// code here
+```
+```javascript
+	// code here
+```
+````
 
 You can also make hidden code blocks that will be evaluated by using html comments tagged in the same manner:
+
 ```html
 <!--js
 	// code here
@@ -69,6 +72,8 @@ You can also make hidden code blocks that will be evaluated by using html commen
 
 If you want to write visible javascript code blocks that won't be evaluated but will be styled, tag them as `node`:
 
-	```node
-		// code here
-	```
+````
+```node
+	// code here
+```
+````
