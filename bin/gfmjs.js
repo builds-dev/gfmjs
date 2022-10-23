@@ -22,6 +22,7 @@ const prog = sade('gfmjs [file]', true)
 			if (outfile) {
 				await fs.promises.writeFile(outfile, code)
 			}
+			process.exit(failed ? 1 : 0)
 		} catch (error) {
 			console.error(error.message)
 			process.exit(1)
