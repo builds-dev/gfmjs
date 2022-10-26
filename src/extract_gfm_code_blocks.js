@@ -1,5 +1,6 @@
 import Markdown from 'markdown-it'
 import regex from 'regex-fun'
+import split_lines_keep_line_endings from './split_lines_keep_line_endings.js'
 const lineBreak = regex.either(/\r\n/, /\r/, /\n/)
 
 const make_html_comment_code_block_regex = languages => regex.combine(
@@ -29,11 +30,10 @@ const tokenTypeHandlers = {
 }
 
 export const extract_gfm_code_blocks = (gfm, { languages }) => {
-	const lineIndexes = gfm
-		.split(lineBreak)
+	const lineIndexes = split_lines_keep_line_endings(gfm)
 		.reduce(
 			(acc, line, index) => {
-				const start = index === 0 ? 0 : acc[index - 1].end + 1
+				const start = index === 0 ? 0 : acc[index - 1].end
 				const end = start + line.length
 				acc.push({ start, end })
 				return acc
