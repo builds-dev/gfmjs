@@ -11,13 +11,13 @@ export default function ({ types: t, transform }) {
 	const assertIIFE = (actual, expected) =>
 		t.callExpression(
 			t.arrowFunctionExpression(
-				[ t.identifier('actual') ],
+				[ t.identifier('expected'), t.identifier('actual') ],
 				t.blockStatement([
-					t.expressionStatement(assertExpression(t.identifier('actual'), expected)),
+					t.expressionStatement(assertExpression(t.identifier('actual'), t.identifier('expected'))),
 					t.returnStatement(t.identifier('actual'))
 				])
 			),
-			[ actual ]
+			[ expected, actual ]
 		)
 
 	const getExpected = comment => {
@@ -55,7 +55,7 @@ export default function ({ types: t, transform }) {
 
 				const actual = path.node.expression
 				const expected = getExpected(comment)
-				path.replaceWith(assertIIFE(actual, expected))
+				path.insertAfter(assertIIFE(actual, expected))
 				path.skip()
 			},
 			ReturnStatement (path, state) {
