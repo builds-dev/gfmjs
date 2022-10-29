@@ -55,7 +55,7 @@ export default function ({ types: t, transform }) {
 
 				const actual = path.node.expression
 				const expected = getExpected(comment)
-				path.insertAfter(assertIIFE(actual, expected))
+				path.insertAfter(t.expressionStatement(assertIIFE(actual, expected)))
 				path.skip()
 			},
 			ReturnStatement (path, state) {
