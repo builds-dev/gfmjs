@@ -1,7 +1,7 @@
 const commentAssertionRegex = /^\s*=>\s*/
 const isCommentAssertion = comment => comment ? commentAssertionRegex.test(comment.value) : false
 
-export default function ({ types: t, transformSync }) {
+export default function ({ types: t, parseSync }) {
 	const assertExpression = (actual, expected) =>
 		t.callExpression(
 			t.memberExpression(t.identifier('assert'), t.identifier('deepEqual')),
@@ -22,8 +22,8 @@ export default function ({ types: t, transformSync }) {
 
 	const getExpected = comment => {
 		const expectedText = comment.value.replace(commentAssertionRegex, '').trim()
-		return transformSync(`() => (${expectedText})`, { ast: true })
-			.ast.program.body[0].expression.body
+		return parseSync(`() => (${expectedText})`)
+			.program.body[0].expression.body
 	}
 
 	return {
