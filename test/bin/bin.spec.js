@@ -48,7 +48,10 @@ const assert_source_map_line = async (t, relative_file, line) => {
 
 test('correct source maps', async t => {
 	await assert_source_map_line(t, './fail.md', 3)
+	// await assert_source_map_line(t, '../arrow-explicit-return/arrow-explicit-return.md', 7) // shows line 6 not 7
 	await assert_source_map_line(t, '../arrow-implied-return/arrow-implied-return.md', 4)
+	// await assert_source_map_line(t, '../function-return/function-return.md', 7) // shows line 6 not 7
 	await assert_source_map_line(t, '../html-comment/html-comment.md', 3)
 	await assert_source_map_line(t, '../inline/inline.md', 4)
+	// await assert_source_map_line(t, '../multiline/multiline.md', 10) // shows line 14 not 10
 })
