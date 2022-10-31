@@ -1,4 +1,4 @@
-export default names => ({ types: t, transform }) => {
+export default names => ({ types: t }) => {
 	return {
 		visitor: {
 			Program (path, { file, opts }) {
