@@ -37,8 +37,21 @@ test('fail', async t => {
 	t.ok(/'something else'/.test(stderr), 'stderr contains actual value')
 })
 
-test('failed assertions are source-mapped to the markdown file', async t => {
-	const { err, stdout, stderr } = await run_bin_on_relative_file('./fail.md')
+const assert_source_map_line = async (t, relative_file, line) => {
+	const { err, stdout, stderr } = await run_bin_on_relative_file(relative_file)
 
-	t.ok(/fail\.md:\d+:\d+/.test(stderr), 'Error line points to markdown file')
+	t.ok(/\.md:\d/.test(stderr), 'Error line points to the markdown file')
+
+	const [ , line_number ] = stderr.match(/\.md:(\d+)/) || []
+	t.equal(line_number, line.toString(), `Error line is correct for ${relative_file}`)
+}
+
+test('correct source maps', async t => {
+	await assert_source_map_line(t, './fail.md', 3)
+	// await assert_source_map_line(t, '../arrow-explicit-return/arrow-explicit-return.md', 7) // shows line 6 not 7
+	await assert_source_map_line(t, '../arrow-implied-return/arrow-implied-return.md', 4)
+	// await assert_source_map_line(t, '../function-return/function-return.md', 7) // shows line 6 not 7
+	await assert_source_map_line(t, '../html-comment/html-comment.md', 3)
+	await assert_source_map_line(t, '../inline/inline.md', 4)
+	// await assert_source_map_line(t, '../multiline/multiline.md', 10) // shows line 14 not 10
 })
